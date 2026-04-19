@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = "us-east-1"
-        ECR_REPO = "<account-id>.dkr.ecr.us-east-1.amazonaws.com/my-app"
+        ECR_REPO = "281934899210.dkr.ecr.us-east-1.amazonaws.com/my-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/<your-username>/<repo>.git'
+                git 'https://github.com/angs-skype/testjenkins.git'
             }
         }
 
