@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/angs-skype/testjenkins.git'
+                git branch: 'main', url: 'https://github.com/angs-skype/testjenkins.git'
             }
         }
 
