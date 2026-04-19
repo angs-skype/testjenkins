@@ -5,13 +5,15 @@ pipeline {
         AWS_REGION = "us-east-1"
         ECR_REPO = "281934899210.dkr.ecr.us-east-1.amazonaws.com/my-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
+        CLUSTER_NAME = "my-cluster"
+        SERVICE_NAME = "my-jenkins-service"
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/angs-skype/testjenkins.git'
+               git branch: 'main', url: 'https://github.com/angs-skype/testjenkins.git'
             }
         }
 
@@ -40,6 +42,17 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh 'docker push $ECR_REPO:$IMAGE_TAG'
+            }
+        }
+
+        stage('Deploy to ECS') {
+            steps {
+                sh '''
+                AWS_PAGER="" aws ecs update-service \
+                --cluster $CLUSTER_NAME \
+                --service $SERVICE_NAME \
+                --force-new-deployment
+                '''
             }
         }
     }
