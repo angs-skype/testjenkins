@@ -55,5 +55,17 @@ pipeline {
                 '''
             }
         }
+        stage('Deploy to EKS') {
+           steps {
+                  sh '''
+                        export KUBECONFIG=/var/jenkins_home/.kube/config
+
+                        kubectl set image deployment/my-app \
+                        my-app=$ECR_REPO:$IMAGE_TAG
+
+                        kubectl rollout status deployment/my-app
+                    '''
+                }
+        }
     }
 }
