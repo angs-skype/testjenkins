@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION = "us-east-1"
         ECR_REPO = "281934899210.dkr.ecr.us-east-1.amazonaws.com/my-app"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "${BUILD_NUMBER}"
         CLUSTER_NAME = "my-cluster"
         SERVICE_NAME = "my-jenkins-service"
     }
